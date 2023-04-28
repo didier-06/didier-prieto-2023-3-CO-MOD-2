@@ -69,4 +69,7 @@ BG = pygame.image.load(os.path.join(IMG_DIR, 'Other/Track.png'))
 
 HEART = pygame.image.load(os.path.join(IMG_DIR, 'Other/SmallHeart.png'))
 
+BACKGROUND = pygame.image.load(os.path.join(IMG_DIR, "Other/background.png"))
+BACKGROUND = pygame.transform.scale(BACKGROUND, (SCREEN_WIDTH, SCREEN_HEIGHT))
+
 DEFAULT_TYPE = "default"
