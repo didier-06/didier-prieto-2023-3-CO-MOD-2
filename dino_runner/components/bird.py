@@ -21,13 +21,13 @@ class Bird(Sprite):
     def update(self, game):
         if self.bird_fly:
             self.fly()
-           
 
         if self.step_index > 10:
             self.step_index = 0
 
+        self.bird_rect.x -= 20
 
-        if self.bird_rect.x < -SCREEN_WIDTH:
+        if self.bird_rect.x < -20:
             self.bird_rect.x = SCREEN_WIDTH
             self.bird_rect.y = random.choice(self.BIRD_HEIGHTS)
 
@@ -36,13 +36,7 @@ class Bird(Sprite):
 
     def fly(self):
         self.image = BIRD[0] if self.step_index < 5 else BIRD[1]
-        self.bird_rect = self.image.get_rect()
-         self.bird_rect.x = 
-        self.bird_rect.y = self.pos_y 
         self.step_index += 1
-
-    def map(self):
-
 
     def draw(self, screen):
        screen.blit(self.image, (self.bird_rect.x, self.bird_rect.y))
