@@ -34,11 +34,11 @@ class Dinosaur:
 		if self.dino_duck:
 			self.duck(user_imput)
 
-		if user_imput[pygame.K_UP] and not self.dino_jump:
+		if (user_imput[pygame.K_UP] or user_imput[pygame.K_SPACE] or user_imput[pygame.K_w]) and not self.dino_jump:
 			self.dino_jump = True
 			self.dino_run = False
 			
-		if user_imput[pygame.K_DOWN] and not self.dino_jump:
+		if (user_imput[pygame.K_DOWN] or user_imput[pygame.K_s]) and not self.dino_jump:
 			self.dino_duck = True
 			self.dino_run = False	
 
