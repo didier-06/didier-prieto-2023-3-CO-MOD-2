@@ -40,11 +40,7 @@ class Dinosaur:
 			
 		if user_imput[pygame.K_DOWN] and not self.dino_jump:
 			self.dino_duck = True
-			self.dino_run = False
-			
-
-
-		
+			self.dino_run = False	
 
 	def draw(self, screen):
 		screen.blit(self.image, (self.dino_rect.x, self.dino_rect.y))
@@ -60,7 +56,8 @@ class Dinosaur:
 		self.image = JUMPING
 		self.dino_rect.y -= self.jump_speed*4
 		self.jump_speed -= 0.8
-		if self.dino_rect.y > 300:
+		if self.jump_speed < -self.JUMP_SPEED:
+			self.dino_rect.y = self.Y_POS
 			self.dino_jump = False
 			self.jump_speed = self.JUMP_SPEED
 			self.dino_run = True
