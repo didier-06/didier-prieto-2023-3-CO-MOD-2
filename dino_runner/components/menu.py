@@ -10,7 +10,6 @@ class Menu:
         screen.fill((255, 255, 255))
         self.font = pygame.font.Font(FONT_STYLE, 30)
         self.font_list_end = pygame.font.Font(FONT_STYLE, 20)
-        self.list_end = ""
         self.text = self.font.render(message, True, (0, 0, 0))
         self.text_rect = self.text.get_rect()
         self.text_rect.center = (self.half_screen_width, self.half_screen_height)
@@ -25,15 +24,19 @@ class Menu:
         if score > self.max_score:
             self.max_score = score
 
-        data_game = f""" SCORE = {score}
-                         DEATHS = {death}
-                         MAX SCORE = {self.max_score}              """
-
-        self.list_end = self.font_list_end.render(data_game, True, (0, 0, 0))
+        deaths = f"DEATHS: {death}"
+        scores = f"SCORE: {score}"
+        max_score_lis = f"MAX SCORE: {self.max_score}"
+        deaths = self.font_list_end.render(deaths, True, (0, 0, 0))
+        scores = self.font_list_end.render(scores, True, (0, 0, 0))
+        max_score_lis = self.font_list_end.render(max_score_lis, True, (0, 0, 0))
         screen.blit(self.text, self.text_rect)
         if death > 0:
-            scrren.blit(self.image_game_over,(self.half_screen_width, self.half_screen_height -50)
-            screen.blit(self.list_end, (self.half_screen_width, self.half_screen_height -80) 
+            screen.blit(self.image_game_over,(self.half_screen_width - 200 , self.half_screen_height -250))
+            screen.blit(scores ,(self.half_screen_width - 70, self.half_screen_height + 20))
+            screen.blit(deaths ,(self.half_screen_width - 70, self.half_screen_height + 50))
+            screen.blit(max_score_lis,(self.half_screen_width - 70, self.half_screen_height + 80))
+
 
 
 
@@ -47,6 +50,5 @@ class Menu:
             if event.type == pygame.QUIT:
                 game.running = False
                 game.playing = False
-                game.death += 1
             elif event.type == pygame.KEYDOWN:
                 game.run()

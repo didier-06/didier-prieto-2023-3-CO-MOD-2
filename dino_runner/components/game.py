@@ -35,6 +35,7 @@ class Game:
         while self.running:
             if not self.playing:
                 self.show_menu()
+
         pygame.display.quit()
         pygame.quit()
 
@@ -95,4 +96,5 @@ class Game:
         self.game_speed = self.GAME_SPEED
         self.score.reset()
         self.player.reset()
+
 

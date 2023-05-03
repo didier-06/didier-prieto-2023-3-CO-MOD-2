@@ -8,7 +8,6 @@ class Counter:
 	def update(self):
 		self.count += 1
 
-
 	def draw(self, screen):
 		font = pygame.font.Font(FONT_STYLE, 30)
 		text = font.render(f"Score: {self.count}",True, (0, 0, 0))

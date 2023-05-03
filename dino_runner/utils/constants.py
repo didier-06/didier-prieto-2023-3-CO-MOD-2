@@ -72,7 +72,7 @@ HEART = pygame.image.load(os.path.join(IMG_DIR, 'Other/SmallHeart.png'))
 BACKGROUND = pygame.image.load(os.path.join(IMG_DIR, "Other/background.png"))
 BACKGROUND = pygame.transform.scale(BACKGROUND, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
-GAME_OVER = pygame.imagen.load(os.path.join(IMG_DIR, "Other/GameOver.png"))
+GAME_OVER = pygame.image.load(os.path.join(IMG_DIR, "Other/GameOver.png"))
 
 DEFAULT_TYPE = "default"
 

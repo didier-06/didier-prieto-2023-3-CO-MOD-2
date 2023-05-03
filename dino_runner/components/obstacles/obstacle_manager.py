@@ -23,6 +23,7 @@ class ObstacleManager:
 
             if game.player.dino_rect.colliderect(obstacle.rect):
                 game.playing = False
+                game.death += 1
                 break
 
     def draw(self, screen):
