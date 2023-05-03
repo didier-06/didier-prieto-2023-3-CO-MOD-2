@@ -28,13 +28,13 @@ class Game:
         self.menu = Menu(self.screen, "Please press any key to start...")
         self.running = False
         self.score = Counter()
+        self.death = 0
 
     def execute(self):
         self.running = True
         while self.running:
             if not self.playing:
                 self.show_menu()
-
         pygame.display.quit()
         pygame.quit()
 
@@ -82,7 +82,7 @@ class Game:
         half_screen_width = SCREEN_WIDTH // 2
         half_screen_height = SCREEN_HEIGHT // 2
         self.screen.blit(ICON, (half_screen_width - 50, half_screen_height - 140))
-        self.menu.draw(self.screen)
+        self.menu.draw(self.screen, self.death, self.score.count)
         self.menu.update(self)
         
     def update_score(self):

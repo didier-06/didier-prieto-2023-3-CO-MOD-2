@@ -15,7 +15,7 @@ class ObstacleManager:
                                                                                                                                                                                                                                                                                                                                                          
     def update(self,game):
         if len(self.obstacles) == 0:
-            obstacle = self.generate_obstacle_image(random.randint(0, 2))
+            obstacle = self.generate_obstacle_image(random.randint(0, 1))
             self.obstacles.append(obstacle)
 
         for obstacle in self.obstacles:
