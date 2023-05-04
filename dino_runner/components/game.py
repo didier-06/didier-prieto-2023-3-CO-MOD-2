@@ -94,9 +94,10 @@ class Game:
         self.menu.reset_screen_color(self.screen)
         half_screen_width = SCREEN_WIDTH // 2
         half_screen_height = SCREEN_HEIGHT // 2
-        self.screen.blit(ICON, (half_screen_width - 50, half_screen_height - 140))
+        if self.death == 0:
+            self.screen.blit(ICON, (half_screen_width - 50, half_screen_height - 140))
         self.menu.draw(self.screen, self.death, self.score.count, "Press any key to start...", self)
-        self.menu.update(self)
+        self.menu.update(self) 
         
     def update_score(self):
         self.score.update()

@@ -1,6 +1,6 @@
 import pygame
 
-from dino_runner.utils.constants import FONT_STYLE, SCREEN_WIDTH, SCREEN_HEIGHT, GAME_OVER, BACKGROUND
+from dino_runner.utils.constants import FONT_STYLE, SCREEN_WIDTH, SCREEN_HEIGHT, GAME_OVER, BACKGROUND, DINO_DEAD, ICON
 
 class Menu:
     half_screen_width = SCREEN_WIDTH // 2
@@ -36,6 +36,7 @@ class Menu:
                 screen.blit(scores ,(self.half_screen_width - 70, self.half_screen_height + 20))
                 screen.blit(deaths ,(self.half_screen_width - 70, self.half_screen_height + 50))
                 screen.blit(max_score_lis,(self.half_screen_width - 70, self.half_screen_height + 80))
+                screen.blit(DINO_DEAD, (self.half_screen_width - 50, self.half_screen_height - 140))
 
     def reset_screen_color(self, screen):
         screen.blit(BACKGROUND, (0, 0))

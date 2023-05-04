@@ -80,4 +80,6 @@ HAMMER_TYPE = "hammer"
 
 DEFAULT_TYPE = "default"
 
+DINO_DEAD = pygame.image.load(os.path.join(IMG_DIR, "Other/DinoDead.png"))
+
 FONT_STYLE = "freesansbold.ttf"
