@@ -1,12 +1,12 @@
 import pygame
 
-from dino_runner.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, BACKGROUND
+from dino_runner.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, BACKGROUND, DEFAULT_TYPE
 from dino_runner.components.dino import Dinosaur
 from dino_runner.components.obstacles.obstacle_manager import ObstacleManager
 from dino_runner.components.menu import Menu
 from dino_runner.components.counter import Counter
-from dino_runner.components.power_ups.power_manager import PowerupManager
-
+from dino_runner.components.powerups.powerup_manager import PowerupManager
+from dino_runner.components.powerups.powerup import LaucherHammer
 
 class Game:
     GAME_SPEED = 20
@@ -22,11 +22,14 @@ class Game:
         self.y_pos_bg = 380
         self.player = Dinosaur()
         self.obstacle_manager = ObstacleManager()
-        self.menu = Menu(self.screen, "Please press any key to start...")
+        self.menu = Menu(self.screen)
         self.running = False
         self.score = Counter()
         self.death = 0
         self.powerup_manager = PowerupManager()
+        self.flag_hammer = False
+        self.hammer = LaucherHammer()
+
 
 
     def execute(self):
@@ -54,10 +57,15 @@ class Game:
 
     def update(self):
         user_input = pygame.key.get_pressed()
-        self.player.update(user_input)
+        self.player.update(user_input, self)
         self.obstacle_manager.update(self)
         self.update_score()
         self.powerup_manager.update(self)
+
+        if self.flag_hammer:
+            self.hammer.update(self)
+
+
 
     def draw(self):
         self.clock.tick(FPS)
@@ -67,6 +75,9 @@ class Game:
         self.obstacle_manager.draw(self.screen)
         self.score.draw(self.screen)
         self.powerup_manager.draw(self.screen)
+        self.power_up()
+        if self.flag_hammer:
+            self.hammer.draw(self.screen)
         pygame.display.update()
         pygame.display.flip()
 
@@ -84,7 +95,7 @@ class Game:
         half_screen_width = SCREEN_WIDTH // 2
         half_screen_height = SCREEN_HEIGHT // 2
         self.screen.blit(ICON, (half_screen_width - 50, half_screen_height - 140))
-        self.menu.draw(self.screen, self.death, self.score.count)
+        self.menu.draw(self.screen, self.death, self.score.count, "Press any key to start...", self)
         self.menu.update(self)
         
     def update_score(self):
@@ -102,7 +113,11 @@ class Game:
         if self.player.has_power_up:
             time_to_show = round((self.player.power_up_time - pygame.time.get_ticks())/1000, 2)
             if time_to_show >= 0:
-                self.menu.draw( self.screen, f"{self.player.type.capitalize()}", score)
+                self.menu.draw(self.screen, self.death, self.score.count, f"{self.player.type.capitalize()} enabled for {time_to_show} seconds", self, 500, 50)
+            else:
+                self.player.has_power_up = False
+                self.player.type = DEFAULT_TYPE
+                
 
 
 

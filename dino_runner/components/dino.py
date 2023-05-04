@@ -2,18 +2,19 @@ import pygame
 
 from pygame.sprite import Sprite
 
-from dino_runner.utils.constants import RUNNING, JUMPING, DUCKING, DEFAULT_TYPE, SHIELD_TYPE, RUNNING_SHIELD, JUMPING_SHIELD, DUCKING_SHIELD
+from dino_runner.utils.constants import RUNNING, JUMPING, DUCKING, DEFAULT_TYPE, SHIELD_TYPE, RUNNING_SHIELD, JUMPING_SHIELD, DUCKING_SHIELD, RUNNING_HAMMER, DUCKING_HAMMER, JUMPING_HAMMER, HAMMER_TYPE
 
+RUN_IMAGE = {DEFAULT_TYPE: RUNNING, SHIELD_TYPE: RUNNING_SHIELD, HAMMER_TYPE: RUNNING_HAMMER}
+DUCK_IMAGE = {DEFAULT_TYPE: DUCKING, SHIELD_TYPE: DUCKING_SHIELD, HAMMER_TYPE: JUMPING_HAMMER}
+JUMP_IMAGE = {DEFAULT_TYPE: JUMPING, SHIELD_TYPE: JUMPING_SHIELD, HAMMER_TYPE: JUMPING_HAMMER}
 class Dinosaur:
 	X_POS = 80
 	Y_POS = 310
 	JUMP_SPEED = 8.5
 	Y_POS_DUCK = 340
-	RUN_IMAGE = {DEFAULT_TYPE: RUNNING, SHIELD_TYPE: RUNNING_SHIELD,}
-	DUCK_IMAGE = {DEFAULT_TYPE: DUCKING, SHIELD_TYPE: DUCKING_SHIELD}
-	JUMP_IMAGE = {DEFAULT_TYPE: JUMPING, SHIELD_TYPE: JUMPING_SHIELD}
-
+	
 	def __init__(self):
+		self.image = RUNNING[0]
 		self.dino_rect = self.image.get_rect()
 		self.dino_rect.x = self.X_POS
 		self.dino_rect.y = self.Y_POS
@@ -28,7 +29,7 @@ class Dinosaur:
 		self.power_up_time = 0
 
 
-	def update(self, user_imput):
+	def update(self, user_imput, game):
 		# si el dino esta corriendo es True
 		if self.dino_run:
 			self.run()
@@ -48,13 +49,19 @@ class Dinosaur:
 			
 		if (user_imput[pygame.K_DOWN] or user_imput[pygame.K_s]) and not self.dino_jump:
 			self.dino_duck = True
-			self.dino_run = False	
+			self.dino_run = False
+
+		if (user_imput[pygame.K_d] or user_imput[pygame.K_LEFT]) and self.type == HAMMER_TYPE:
+			game.flag_hammer = True
+			game.hammer.rect.y = self.dino_rect.y
+			game.hammer.rect.x = self.dino_rect.x + 100
+			self.type = DEFAULT_TYPE
 
 	def draw(self, screen):
 		screen.blit(self.image, (self.dino_rect.x, self.dino_rect.y))
 
 	def run(self):
-		self.image = RUN_IMAGE[self.type][self.step_index // 5]
+		self.image = RUN_IMAGE[self.type][0] if self.step_index < 5 else RUN_IMAGE[self.type][1]
 		self.dino_rect = self.image.get_rect()
 		self.dino_rect.x = self.X_POS
 		self.dino_rect.y = self.Y_POS
@@ -71,7 +78,7 @@ class Dinosaur:
 			self.dino_run = True
 
 	def duck(self,user_imput):
-		self.image = DUCK_IMAGE[self.type][self.step_index // 5]
+		self.image = DUCK_IMAGE[self.type][0] if self.step_index < 5 else DUCK_IMAGE[self.type][1]
 		self.dino_rect = self.image.get_rect()
 		self.dino_rect.x = self.X_POS
 		self.dino_rect.y = self.Y_POS_DUCK
