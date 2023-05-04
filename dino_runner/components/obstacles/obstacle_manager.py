@@ -26,9 +26,10 @@ class ObstacleManager:
                 else:
                     self.obstacles.remove(obstacle)
 
-            if game.hammer.rect.colliderect(obstacle.rect):
-                game.hammer.flag_hammer = False
-                self.obstacles.remove(obstacle)
+            if game.flag_hammer:
+                if game.hammer.rect.colliderect(obstacle.rect):
+                    self.obstacles.remove(obstacle)
+                    game.hammer.flag_hammer = False
 
                     
                 

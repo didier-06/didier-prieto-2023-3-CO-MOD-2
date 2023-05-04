@@ -1,6 +1,6 @@
 import pygame
 
-from dino_runner.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, BACKGROUND, DEFAULT_TYPE
+from dino_runner.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, BACKGROUND, DEFAULT_TYPE, SHIELD_TYPE
 from dino_runner.components.dino import Dinosaur
 from dino_runner.components.obstacles.obstacle_manager import ObstacleManager
 from dino_runner.components.menu import Menu
@@ -112,11 +112,12 @@ class Game:
     def power_up(self):
         if self.player.has_power_up:
             time_to_show = round((self.player.power_up_time - pygame.time.get_ticks())/1000, 2)
-            if time_to_show >= 0:
-                self.menu.draw(self.screen, self.death, self.score.count, f"{self.player.type.capitalize()} enabled for {time_to_show} seconds", self, 500, 50)
-            else:
-                self.player.has_power_up = False
-                self.player.type = DEFAULT_TYPE
+            if self.player.type == SHIELD_TYPE: 
+                if time_to_show >= 0:
+                    self.menu.draw(self.screen, self.death, self.score.count, f"{self.player.type.capitalize()} enabled for {time_to_show} seconds", self, 500, 50)
+                else:
+                    self.player.has_power_up = False
+                    self.player.type = DEFAULT_TYPE
                 
 
 
