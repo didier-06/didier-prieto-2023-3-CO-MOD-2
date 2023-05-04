@@ -18,12 +18,12 @@ RUNNING = [
 
 RUNNING_SHIELD = [
     pygame.image.load(os.path.join(IMG_DIR, "Dino/DinoRun1Shield.png")),
-    pygame.image.load(os.path.join(IMG_DIR, "Dino/DinoRun2.png")),
+    pygame.image.load(os.path.join(IMG_DIR, "Dino/DinoRun2Shield.png")),
 ]
 
 RUNNING_HAMMER = [
     pygame.image.load(os.path.join(IMG_DIR, "Dino/DinoDuck1Hammer.png")),
-    pygame.image.load(os.path.join(IMG_DIR, "Dino/DinoRun2.png")),
+    pygame.image.load(os.path.join(IMG_DIR, "Dino/DinoDuck2Hammer.png")),
 ]
 
 JUMPING = pygame.image.load(os.path.join(IMG_DIR, "Dino/DinoJump.png"))
@@ -42,7 +42,7 @@ DUCKING_SHIELD = [
 
 DUCKING_HAMMER = [
     pygame.image.load(os.path.join(IMG_DIR, "Dino/DinoDuck1Hammer.png")),
-    pygame.image.load(os.path.join(IMG_DIR, "Dino/DinoDuck2.png")),
+    pygame.image.load(os.path.join(IMG_DIR, "Dino/DinoDuck2Hammer.png")),
 ]
 
 SMALL_CACTUS = [
@@ -73,6 +73,8 @@ BACKGROUND = pygame.image.load(os.path.join(IMG_DIR, "Other/background.png"))
 BACKGROUND = pygame.transform.scale(BACKGROUND, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
 GAME_OVER = pygame.image.load(os.path.join(IMG_DIR, "Other/GameOver.png"))
+
+SHIELD_TYPE = "shield"
 
 DEFAULT_TYPE = "default"
 

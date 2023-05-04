@@ -1,14 +1,11 @@
 import pygame
 
 from dino_runner.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, BACKGROUND
-
 from dino_runner.components.dino import Dinosaur
-
 from dino_runner.components.obstacles.obstacle_manager import ObstacleManager
-
 from dino_runner.components.menu import Menu
-
 from dino_runner.components.counter import Counter
+from dino_runner.components.power_ups.power_manager import PowerupManager
 
 
 class Game:
@@ -29,6 +26,8 @@ class Game:
         self.running = False
         self.score = Counter()
         self.death = 0
+        self.powerup_manager = PowerupManager()
+
 
     def execute(self):
         self.running = True
@@ -58,6 +57,7 @@ class Game:
         self.player.update(user_input)
         self.obstacle_manager.update(self)
         self.update_score()
+        self.powerup_manager.update(self)
 
     def draw(self):
         self.clock.tick(FPS)
@@ -66,6 +66,7 @@ class Game:
         self.player.draw(self.screen)
         self.obstacle_manager.draw(self.screen)
         self.score.draw(self.screen)
+        self.powerup_manager.draw(self.screen)
         pygame.display.update()
         pygame.display.flip()
 
@@ -96,5 +97,12 @@ class Game:
         self.game_speed = self.GAME_SPEED
         self.score.reset()
         self.player.reset()
+
+    def power_up(self):
+        if self.player.has_power_up:
+            time_to_show = round((self.player.power_up_time - pygame.time.get_ticks())/1000, 2)
+            if time_to_show >= 0:
+                self.menu.draw( self.screen, f"{self.player.type.capitalize()}", score)
+
 
 
